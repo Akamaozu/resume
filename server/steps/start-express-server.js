@@ -1,3 +1,5 @@
+var http = require('http');
+
 module.exports = function create_step_start_express_server( task, config ){
   if( ! config ) config = {};
 
@@ -5,9 +7,13 @@ module.exports = function create_step_start_express_server( task, config ){
     var express_instance = task.get( 'express' ),
         port = task.get( 'http-server-port' );
 
-    var http_instance = express_instance.listen( port, function( error ){
-      if( error ) return task.end( error );
+    var http_instance = http.createServer( express_instance );
 
+    http_instance.on( 'error', function( error ){
+      if( task && task.end ) return task.end( error );
+    });
+
+    http_instance.listen( port, function(){
       task.set( 'http-instance', http_instance );
       task.next();
     });
