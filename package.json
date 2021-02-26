@@ -9,6 +9,7 @@
   "author": "akamaozu <uzo@designbymobius.ca> (http://designbymobi.us/)",
   "license": "MIT",
   "dependencies": {
+    "cjs-task": "^2.3.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1"
   }
